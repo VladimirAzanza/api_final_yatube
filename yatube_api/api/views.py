@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .serializers import (
@@ -43,11 +44,10 @@ class CommentViewSet(OnlyAuthorMixinViewSet):
 class FollowViewSet(ListCreateAPIView):
     serializer_class = FollowSerializer
     pagination_class = None
-
-    def perform_create(self, serializer):
-        serializer.save(
-            user=self.request.user,
-        )
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return Follow.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
