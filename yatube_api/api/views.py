@@ -21,6 +21,7 @@ class PostViewSet(OnlyAuthorMixinViewSet):
 
 class CommentViewSet(OnlyAuthorMixinViewSet):
     serializer_class = CommentSerializer
+    pagination_class = None
 
     def get_post(self):
         return get_object_or_404(Post, id=self.kwargs.get('post_id'))
