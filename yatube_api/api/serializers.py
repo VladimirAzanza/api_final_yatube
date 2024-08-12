@@ -25,7 +25,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = SlugRelatedField(slug_field='username', read_only=True)
-    image = Base64ImageField()
+    image = Base64ImageField(required=False)
 
     class Meta:
         fields = '__all__'
