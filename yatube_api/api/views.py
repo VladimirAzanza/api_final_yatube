@@ -9,6 +9,7 @@ from posts.models import Group, Post
 class GroupViewSet(ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    pagination_class = None
 
 
 class PostViewSet(OnlyAuthorMixinViewSet):
