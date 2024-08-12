@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -43,8 +45,10 @@ class CommentViewSet(OnlyAuthorMixinViewSet):
 
 class FollowViewSet(ListCreateAPIView):
     serializer_class = FollowSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter)
     pagination_class = None
     permission_classes = (IsAuthenticated,)
+    search_fields = ('following__username',)
 
     def get_queryset(self):
         return Follow.objects.filter(user=self.request.user)
