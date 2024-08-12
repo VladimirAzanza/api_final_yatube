@@ -5,7 +5,7 @@ from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
 
-from posts.models import Comment, Group, Post
+from posts.models import Comment, Follow, Group, Post, User
 
 
 class Base64ImageField(serializers.ImageField):
@@ -41,3 +41,26 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Comment
         read_only_fields = ('post',)
+
+
+class FollowSerializer(serializers.ModelSerializer):
+    user = SlugRelatedField(slug_field='username', read_only=True)
+    following = SlugRelatedField(
+        queryset=User.objects.all(),
+        slug_field='username',
+        many=True,
+        required=True
+    )
+
+    class Meta:
+        exclude = ('id',)
+        model = Follow
+
+    def validate(self, data):
+        print(self)
+        if self.context['request'].user in data['following']:
+            raise serializers.ValidationError(
+                'Вы не можете быть своим собственным подписдчиком.'
+                'Введите данные правильно.'
+            )
+        return data

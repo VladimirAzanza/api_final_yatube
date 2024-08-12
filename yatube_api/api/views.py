@@ -1,9 +1,12 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from .serializers import CommentSerializer, GroupSerializer, PostSerializer
+from .serializers import (
+    CommentSerializer, FollowSerializer, GroupSerializer, PostSerializer
+)
 from .mixin import OnlyAuthorMixinViewSet
-from posts.models import Group, Post
+from posts.models import Follow, Group, Post
 
 
 class GroupViewSet(ReadOnlyModelViewSet):
@@ -35,3 +38,16 @@ class CommentViewSet(OnlyAuthorMixinViewSet):
             author=self.request.user,
             post=self.get_post()
         )
+
+
+class FollowViewSet(ListCreateAPIView):
+    serializer_class = FollowSerializer
+    pagination_class = None
+
+    def perform_create(self, serializer):
+        serializer.save(
+            user=self.request.user,
+        )
+
+    def get_queryset(self):
+        return Follow.objects.filter(user=self.request.user)
