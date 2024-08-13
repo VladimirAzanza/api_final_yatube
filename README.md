@@ -2,7 +2,7 @@
 
 This is a work in progress of the API to YaTube.
 
-YouTube is an application where users can interact with others through posts or comments to posts, and they can also follow their idols.
+YaTube is an application where users can interact with others through posts or comments to posts, and they can also follow their idols.
 
 This package includes the RESTful API created with Django REST Framework. The idea is to have a simple API to proof concepts such as: serializers, viewsets, regular expresions, permissions, filtration and documentation.
 
