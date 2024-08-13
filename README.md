@@ -13,22 +13,22 @@ This package includes the RESTful API created with Django REST Framework. The id
 
 Install API YaTube with activated venv (Linux):
 
-bash
+```bash
   python -m venv ./venv
   source .venv/bin/activate
-
+```
 next, install dependencies:
-bash
+```bash
   pip install -r requirements.txt
-
+```
 migrate:
-bash
+```bash
   python manage.py migrate
-
+```
 Finally, run the project with:
-bash
+```bash
   python manage.py runserver
-
+```
 
 ## Documentation
 
@@ -44,13 +44,14 @@ Python, Django, DRF, API RESTFul, Postman
 To run collections, go to postman_collection directory
 
 (Attention - this command will clean the existing database):
-bash
+```bash
   bash set_up_data.sh
-
+```
 
 Go back to manage.py directory and runserver:
 At postman app:
-
+```
     1. import CRUD_for_yatube.postman_collection.json 
     2. press button Run collection
     3. press button Run CRUD_for_yatube
+```
