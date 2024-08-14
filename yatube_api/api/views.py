@@ -51,7 +51,7 @@ class FollowViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     serializer_class = FollowSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
     permission_classes = (IsAuthenticated,)
-    search_fields = ('following__username',)
+    search_fields = ('=following__username',)
 
     def get_queryset(self):
         return self.request.user.follower.all()
