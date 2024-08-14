@@ -16,7 +16,10 @@ router_v1.register(
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
-    path('v1/follow/', FollowViewSet.as_view(), name='follow'),
+    path('v1/follow/', FollowViewSet.as_view({
+        'get': 'list',
+        'post': 'create'
+    }), name='follow'),
     path('v1/', include('djoser.urls')),
     path('v1/', include('djoser.urls.jwt'))
 ]
