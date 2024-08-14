@@ -2,11 +2,11 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .mixin import OnlyAuthorMixinViewSet
-from .pagination import CustomLimitOffsetPagination
 from .serializers import (
     CommentSerializer, FollowSerializer, GroupSerializer, PostSerializer
 )
@@ -21,7 +21,7 @@ class GroupViewSet(ReadOnlyModelViewSet):
 class PostViewSet(OnlyAuthorMixinViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
