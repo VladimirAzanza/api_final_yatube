@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .base64_image_field import Base64ImageField
+from .fields import Base64ImageField
 from posts.models import Comment, Follow, Group, Post
 
 
