@@ -39,15 +39,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
-    # user = serializers.SlugRelatedField(
-    #    slug_field='username',
-    #    read_only=True,
-    #    default=serializers.CurrentUserDefault()
-    # )
-    # Вы просили не переопределять поле, но если убрать это - user: user.id
-    # А тесты не проходят: "AssertionError: Проверьте, что при GET-запросе
-    # авторизованного пользователя к `/api/v1/follow/` в поле `user` каждого
-    # из объектов подписки содержится корректный `username` пользователя.
     user = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
